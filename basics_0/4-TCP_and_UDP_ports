@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This script lists all listening TCP and UDP ports with their associated programs.
+
+echo "Active Internet connections (only servers)"
+sudo netstat -tulnp | grep LISTEN
