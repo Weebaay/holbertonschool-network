@@ -1,25 +1,3 @@
 #!/bin/bash
-# Vérifie si netstat ou ss est installé
-
-if command -v netstat > /dev/null; then
-    echo "Utilisation de netstat pour afficher les sockets en écoute..."
-    sudo netstat -tunlp | awk '
-    BEGIN {
-        printf "%-5s %-7s %-7s %-22s %-22s %-10s %s\n", "Proto", "Recv-Q", "Send-Q", "Adresse locale", "Adresse distante", "État", "PID/Nom du programme"
-    }
-    /LISTEN/ {
-        printf "%-5s %-7s %-7s %-22s %-22s %-10s %s\n", $1, $2, $3, $4, $5, $6, $7
-    }'
-elif command -v ss > /dev/null; then
-    echo "Utilisation de ss pour afficher les sockets en écoute..."
-    sudo ss -tunlp | awk '
-    BEGIN {
-        printf "%-5s %-22s %-22s %-10s %s\n", "Proto", "Adresse locale", "Adresse distante", "État", "PID/Nom du programme"
-    }
-    /LISTEN/ {
-        printf "%-5s %-22s %-22s %-10s %s\n", $1, $4, $5, $2, $7
-    }'
-else
-    echo "Erreur : ni netstat ni ss n'est disponible sur votre système."
-    exit 1
-fi
+# Ce script affiche les ports en écoute et les programmes associés
+netstat -tuln | grep LISTEN
