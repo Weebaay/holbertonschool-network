@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This script displays all active IPv4 addresses on the machine.
+
+# Use the `ip addr` command to get network information, filter for IPv4 addresses
+ip addr | grep "inet " | awk '{print $2}' | cut -d'/' -f1

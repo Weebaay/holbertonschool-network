@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# This script listens on port 98 on localhost.
+
+# Check if the script is run as root
+if [ "$EUID" -ne 0 ]; then
+  echo "Please run as root"
+  exit 1
+fi
+
+# Use nc to listen on port 98
+echo "Listening on port 98..."
+nc -l -p 98
